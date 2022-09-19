@@ -2,20 +2,29 @@ package main
 
 import "fmt"
 
+// penjumlahan
 type calculator interface {
 	penjumlahan() int
+	pengurangan() int
 }
 
-type addition struct {
+type dataNum struct {
 	num1 int
 	num2 int
 }
 
-func (a addition) penjumlahan() int {
+func (a dataNum) penjumlahan() int {
 	return a.num1 + a.num2
 }
 
-// interface luas bangun
+func (a dataNum) pengurangan() int {
+	if a.num2 > a.num1 {
+		return a.num2 - a.num1
+	}
+	return a.num1 - a.num2
+}
+
+// interface luas persegi panjang
 type perhitungan interface {
 	luasPersegiPanjang() int
 }
@@ -28,6 +37,7 @@ func (d dataPersegiPanjang) luasPersegiPanjang() int {
 	return d.p * d.l
 }
 
+// interface luas persegi
 type perhitunganPersegi interface {
 	luasPersegi() int
 }
@@ -43,7 +53,8 @@ func (d dataPersegi) luasPersegi() int {
 func main() {
 	fmt.Println("---Menu---")
 	fmt.Println("1. Penjumlahan")
-	fmt.Println("2. Luas Bangun")
+	fmt.Println("2. Pengurangan")
+	fmt.Println("3. Luas Bangun")
 	var choice int
 
 	fmt.Print("Masukkan pilihan anda: ")
@@ -72,7 +83,7 @@ func main() {
 			fmt.Println(err)
 		}
 
-		calculatorResult = addition{
+		calculatorResult = dataNum{
 			num1,
 			num2,
 		}
@@ -80,6 +91,32 @@ func main() {
 		fmt.Println("Penjumlahan (num1 + num2) = ", calculatorResult.penjumlahan())
 		break
 	case 2:
+		fmt.Println("=== Pengurangan ===")
+		var calculatorResult calculator
+
+		var num1 int
+		var num2 int
+
+		fmt.Print("Masukkan angka pertama: ")
+		_, err = fmt.Scanf("%d", &num1)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		fmt.Print("Masukkan angka kedua: ")
+		_, err = fmt.Scanf("%d", &num2)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		calculatorResult = dataNum{
+			num1,
+			num2,
+		}
+
+		fmt.Println("Pengurangan (num1 - num2 / num2 - num1) = ", calculatorResult.pengurangan())
+		break
+	case 3:
 		fmt.Println("Menghitung luas bangun")
 		fmt.Println("1. Persegi Panjang")
 		fmt.Println("2. Persegi")
