@@ -6,32 +6,6 @@ import (
 	perhitungan "github.com/debbysa/go-CLI/perhitungan"
 )
 
-//// interface luas persegi panjang
-//type perhitungan interface {
-//	luasPersegiPanjang() int
-//}
-//type dataPersegiPanjang struct {
-//	p int
-//	l int
-//}
-//
-//func (d dataPersegiPanjang) luasPersegiPanjang() int {
-//	return d.p * d.l
-//}
-//
-//// interface luas persegi
-//type perhitunganPersegi interface {
-//	luasPersegi() int
-//}
-//
-//type dataPersegi struct {
-//	sisi int
-//}
-//
-//func (d dataPersegi) luasPersegi() int {
-//	return d.sisi * d.sisi
-//}
-
 func main() {
 	fmt.Println("---Menu---")
 	fmt.Println("1. Penjumlahan")
