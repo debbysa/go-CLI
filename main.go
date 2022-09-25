@@ -1,54 +1,36 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	calc "github.com/debbysa/go-CLI/calculator"
+	perhitungan "github.com/debbysa/go-CLI/perhitungan"
+)
 
-// penjumlahan
-type calculator interface {
-	penjumlahan() int
-	pengurangan() int
-}
-
-type dataNum struct {
-	num1 int
-	num2 int
-}
-
-func (a dataNum) penjumlahan() int {
-	return a.num1 + a.num2
-}
-
-func (a dataNum) pengurangan() int {
-	if a.num2 > a.num1 {
-		return a.num2 - a.num1
-	}
-	return a.num1 - a.num2
-}
-
-// interface luas persegi panjang
-type perhitungan interface {
-	luasPersegiPanjang() int
-}
-type dataPersegiPanjang struct {
-	p int
-	l int
-}
-
-func (d dataPersegiPanjang) luasPersegiPanjang() int {
-	return d.p * d.l
-}
-
-// interface luas persegi
-type perhitunganPersegi interface {
-	luasPersegi() int
-}
-
-type dataPersegi struct {
-	sisi int
-}
-
-func (d dataPersegi) luasPersegi() int {
-	return d.sisi * d.sisi
-}
+//// interface luas persegi panjang
+//type perhitungan interface {
+//	luasPersegiPanjang() int
+//}
+//type dataPersegiPanjang struct {
+//	p int
+//	l int
+//}
+//
+//func (d dataPersegiPanjang) luasPersegiPanjang() int {
+//	return d.p * d.l
+//}
+//
+//// interface luas persegi
+//type perhitunganPersegi interface {
+//	luasPersegi() int
+//}
+//
+//type dataPersegi struct {
+//	sisi int
+//}
+//
+//func (d dataPersegi) luasPersegi() int {
+//	return d.sisi * d.sisi
+//}
 
 func main() {
 	fmt.Println("---Menu---")
@@ -66,7 +48,7 @@ func main() {
 	switch choice {
 	case 1:
 		fmt.Println("=== Penjumlahan ===")
-		var calculatorResult calculator
+		var calculatorResult calc.Calculator
 
 		var num1 int
 		var num2 int
@@ -83,16 +65,13 @@ func main() {
 			fmt.Println(err)
 		}
 
-		calculatorResult = dataNum{
-			num1,
-			num2,
-		}
+		calculatorResult = calc.NewDataNum(num1, num2)
 
-		fmt.Println("Penjumlahan (num1 + num2) = ", calculatorResult.penjumlahan())
+		fmt.Println("Penjumlahan (num1 + num2) = ", calculatorResult.Penjumlahan())
 		break
 	case 2:
 		fmt.Println("=== Pengurangan ===")
-		var calculatorResult calculator
+		var calculatorResult calc.Calculator
 
 		var num1 int
 		var num2 int
@@ -109,12 +88,9 @@ func main() {
 			fmt.Println(err)
 		}
 
-		calculatorResult = dataNum{
-			num1,
-			num2,
-		}
+		calculatorResult = calc.NewDataNum(num1, num2)
 
-		fmt.Println("Pengurangan (num1 - num2 / num2 - num1) = ", calculatorResult.pengurangan())
+		fmt.Println("Pengurangan (num1 - num2 / num2 - num1) = ", calculatorResult.Pengurangan())
 		break
 	case 3:
 		fmt.Println("Menghitung luas bangun")
@@ -143,12 +119,10 @@ func main() {
 				fmt.Println(err)
 			}
 
-			var perhitunganResult perhitungan
+			var perhitunganResult perhitungan.Perhitungan
 
-			perhitunganResult = dataPersegiPanjang{
-				p, l,
-			}
-			fmt.Println("Luas persegi panjang (p x l) = ", perhitunganResult.luasPersegiPanjang())
+			perhitunganResult = perhitungan.NewDataPersegiPanjang(p, l)
+			fmt.Println("Luas persegi panjang (p x l) = ", perhitunganResult.LuasPersegiPanjang())
 		case 2:
 			var sisi int
 			fmt.Print("Masukkan sisi: ")
@@ -157,12 +131,11 @@ func main() {
 				fmt.Println(err)
 			}
 
-			var perhitunganResult perhitunganPersegi
+			var perhitunganResult perhitungan.PerhitunganPersegi
 
-			perhitunganResult = dataPersegi{
-				sisi,
-			}
-			fmt.Println("Luas Persegi (s x s) = ", perhitunganResult.luasPersegi())
+			perhitunganResult = perhitungan.NewDataPersegi(sisi)
+
+			fmt.Println("Luas Persegi (s x s) = ", perhitunganResult.LuasPersegi())
 			break
 		default:
 			fmt.Println("pilihan tidak ada")
